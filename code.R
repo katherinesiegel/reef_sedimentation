@@ -16,10 +16,14 @@ carib_rpr <- carib %>%
 rf_sed_carib <- st_intersection(rf_sed, carib_rpr)
 ### possible this drops some reefs if slight misalignment between reef polygons (which are gridded by WRI) and EEZ outline?
 
+### To deal with this, can use the GADM shapefiles for country outlines to include reefs that are "on land"
+
+### Now take this into ArcGIS to figure out which polygons should be St Barthelemy
+
 ### Assign values to low/medium/high (can change these numbers-- just a placeholder for now)
-rf_sed_carib$threat_value[rf_sed_carib$THREAT_TXT == "High"] <- 1
-rf_sed_carib$threat_value[rf_sed_carib$THREAT_TXT == "Medium"] <- 0.5
-rf_sed_carib$threat_value[rf_sed_carib$THREAT_TXT == "Low"] <- 0
+rf_sed_carib$threat_value[rf_sed_carib$THREAT_TXT == "High"] <- 1.5
+rf_sed_carib$threat_value[rf_sed_carib$THREAT_TXT == "Medium"] <- 1.25
+rf_sed_carib$threat_value[rf_sed_carib$THREAT_TXT == "Low"] <- 1
 
 ### Calculate weighted means from this
 weighted_mean_threat <- rf_sed_carib %>%
