@@ -55,11 +55,24 @@ weighted_mean_threat <- carib %>%
   group_by(Country) %>%
   summarise(w_mean_threat = weighted.mean(THREAT, poly_area))
 
-### Convert to csv
+### Rename islands to match other files
+weighted_mean_threat$Country <- as.character(weighted_mean_threat$Country)
+weighted_mean_threat$Country[weighted_mean_threat$Country == "Cayman Is."] <- "Cayman Islands"
+weighted_mean_threat$Country[weighted_mean_threat$Country == "Curaçao"] <- "Curacao"
+weighted_mean_threat$Country[weighted_mean_threat$Country == "Saint Vincent and the Grenadines"] <- "St. Vincent and the Grenadines"
+weighted_mean_threat$Country[weighted_mean_threat$Country == "The Bahamas"] <- "Bahamas"
+weighted_mean_threat$Country[weighted_mean_threat$Country == "Turks & Caicos Is."] <- "Turks & Caicos"
+weighted_mean_threat$Country[weighted_mean_threat$Country == "United States Virgin Islands"] <- "USVI"
+weighted_mean_threat$Country[weighted_mean_threat$Country == "Virgin Islands, British"] <- "BVI"
+
+### Convert to df
 wmt_df <- weighted_mean_threat %>% st_set_geometry(NULL)
 
 ### Write csv
-write.csv(wmt_df, "weighted_mean_threat.csv")
+write.csv(wmt_df, "weighted_mean_threat.csv", row.names = FALSE)
+
+### Write csv to target_species project
+write.csv(wmt_df, "/Users/Katherine Siegel/Documents/target_sp/watershed_exp.csv")
 
 
 #################################################
