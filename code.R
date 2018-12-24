@@ -72,7 +72,10 @@ wmt_df <- weighted_mean_threat %>% st_set_geometry(NULL)
 write.csv(wmt_df, "weighted_mean_threat.csv", row.names = FALSE)
 
 ### Write csv to target_species project
-write.csv(wmt_df, "/Users/Katherine Siegel/Documents/target_sp/watershed_exp.csv")
+write.csv(wmt_df, 
+          "/Users/Katherine Siegel/Documents/target_sp/watershed_exp.csv",
+          row.names = FALSE)
+
 
 
 #################################################
